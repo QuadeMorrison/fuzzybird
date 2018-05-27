@@ -1,0 +1,48 @@
+from soundex import match
+
+phrases = [
+    "Eat your foot",
+    "I hate the green flashing light.",
+    "Hello. I have the urge to kill.",
+    "Oh no! You’re going to speak again, aren’t you",
+    "DO NOT DISTURB, evil genius at work",
+    "Banana suicide!!",
+    "I’m with stupid------àJ",
+    "Rubber ducks are planning world domination",
+    "But my tree only hit the car in self-defence!",
+    "I know kung futher dangerous words",
+    "Did my sarcasm hurt your feels? Get over it",
+    "Love your enemies, it makes them angry.",
+    "Fat kids are harder to kidnap.",
+    "Shut up voices! Or I will poke you with y pen again",
+    "Save water, drink beer.",
+    "Save a tree, eat a beaver",
+    "Get high, climb a tree.",
+    "Save a horse, ride a cowboy.",
+    "Don’t mess with me! I have a stick!",
+    "Go away, evil Mr Scissors!",
+    "Ha ha! I don’t get it.",
+    "We’re all gonna die, but I have a helmet.",
+    "It’s much funnier now that I get it.",
+    "No trespassing! Violators will be shot and survivors will be shot again",
+    "Come to the dark side. We have cookies.",
+    "My eraser will kick your eraser’s ass!",
+    "Save a drum, bang a drummer.",
+    "Defy gravity; all the cool kids are doing it.",
+    "The decision is maybe and that’s final!",
+    "I’m not weird, I’m gifted.",
+    "Life called… you failed.",
+    "My mom said that I am cool because I don’t do drugs.",
+    "I am pretending to be a tomato.",
+    "They say that hard work never hurt anyone but why take the risk?",
+    "Never put a cat on your head.",
+    "Don’t eat my foot!",
+    "Never set yourself on fire.",
+    "The banana has legs!",
+    "Its better to look stupid and keep your mouth closed than to open it and prove it.",
+    "Don’t worry, I was born this way.",
+    "I am being attacked by a giant screaming rainbow! Oh, sorry, it was just technical difficulties."
+]
+
+
+print(match("bana suicide", phrases))
