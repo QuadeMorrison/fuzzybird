@@ -3,6 +3,7 @@
 import argparse
 import configparser
 import sys
+from os.path import expanduser
 
 def arg_logic():
     # this is just in the standard library.
@@ -12,7 +13,7 @@ def arg_logic():
     parser = argparse.ArgumentParser(prog="fuzzybird",description = "A twitter fuzzy finder :).")
     parser.add_argument("--config-file", metavar='F',
             help="Override the config file.",
-            default="~/.fuzzybirdrc")
+            default=expanduser("~/.fuzzybirdrc"))
     parser.add_argument("--hashtag", metavar='H',
             help="The hashtag.")
     return parser.parse_args()
