@@ -56,7 +56,7 @@ def encode_str(str, pipe_together = False):
     for word in str.split(' '):
         encoded_str += encode_word(word)
         if pipe_together:
-            encoded_str += "|"
+            encoded_str += ".*"
 
     return encoded_str if not pipe_together else encoded_str[0:-1]
 
