@@ -27,6 +27,6 @@ if __name__ == "__main__":
     if not args.hashtag:
         args.hashtag = input("Enter your hashtag: ")
 
-    hashtags = [unicodedata.normalize('NFKD', text).encode('ascii','ignore') for text in get_hashtag_tweet(args.hashtag, 1000)]
+    hashtags = [unicodedata.normalize('NFKD', text).encode('ascii','ignore').decode('ascii') for text in get_hashtag_tweet(args.hashtag, 1000)]
     encoded_hashtags = soundex.encode_phrases(hashtags)
     tweetgui.execute(hashtags, encoded_hashtags)

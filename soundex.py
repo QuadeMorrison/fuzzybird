@@ -8,7 +8,6 @@ encoding.update(dict.fromkeys(['l'], 4))
 encoding.update(dict.fromkeys(['m', 'n'], 5))
 encoding.update(dict.fromkeys(['r'], 6))
 
-
 def encode_word(word):
     word = word.lower()
     encoded_word = ""
@@ -79,7 +78,7 @@ def match_raw(str, phrases, encoded_phrases=False):
         if score > 0:
             matching_phrases.append((phrases[i], score))
 
-    return sorted(set(matching_phrases), key=lambda match: match[1])
+    return sorted(set(matching_phrases), key=lambda match: match[1], reverse=True)
 
 
 def match(str, phrases, encoded_phrases=False):
