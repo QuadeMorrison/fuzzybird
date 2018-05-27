@@ -45,4 +45,4 @@ phrases = [
 ]
 
 
-print(match("bana suicide", phrases))
+print(match("banan suicide", phrases))

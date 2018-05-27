@@ -21,8 +21,8 @@ def encode_word(word):
             encoded_word += str(c)
             if c not in encoding:
                 last_was_vowel = True
-        # elif num_encoded == 3:
-            #break
+        #elif num_encoded == 3:
+           #break
         elif c in encoding:
             encoded_char = encoding[c]
 
@@ -54,7 +54,7 @@ def encode_word(word):
 def encode_str(str, pipe_together = False):
     encoded_str = ""
 
-    for word in str.split():
+    for word in str.split(' '):
         encoded_str += encode_word(word)
         if pipe_together:
             encoded_str += "|"
@@ -84,3 +84,5 @@ def match_raw(str, phrases, encoded_phrases=False):
 
 def match(str, phrases, encoded_phrases=False):
     return [text[0] for text in match_raw(str, phrases, encoded_phrases)]
+    #return sorted(matching_phrases)
+
