@@ -58,7 +58,7 @@ def encode_str(str, pipe_together = False):
         if pipe_together:
             encoded_str += ".*"
 
-    return encoded_str if not pipe_together else encoded_str[0:-1]
+    return encoded_str if not pipe_together else encoded_str[:-2]
 
 
 def encode_phrases(phrases):
