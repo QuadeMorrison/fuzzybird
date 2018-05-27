@@ -1,11 +1,10 @@
+#!/usr/bin/env python3
 # these are part of the standard library.
 import argparse
 import configparser
 import sys
 
-
 g_keys = {}
-
 
 def arg_logic():
     # this is just in the standard library.
@@ -14,19 +13,25 @@ def arg_logic():
     # arguments
     parser = argparse.ArgumentParser(prog="fuzzybird",description = "A twitter fuzzy finder :).")
     parser.add_argument("--config", metavar='F', help="Override the config file.", default="~/.fuzzybirdrc")
-    args = parser.parse_args()
-    parse_config(args.config)
+    return parser.parse_args()
 
+# sets some config variables
 def parse_config(config_file):
     config = configparser.ConfigParser()
     config.read(config_file)
 
-    if 'keys' in config:
-        print(config['keys'])
-    else:
+    if not 'keys' in config:
         error("There were no keys found in '{:s}'.".format(config_file))
+
+    g_keys = config['keys']
+
+    for key in ['consumerkey', 'consumersecretkey', 'accesstoken', 'accesstokenkey']:
+        if not key in g_keys:
+            error("'{:s}' key not found in config.".format(key))
 
 def error(s):
     sys.exit("Error: " + s)
 
-arg_logic()
+if __name__ == "__main__":
+    args = arg_logic()
+    parse_config(args.config)
