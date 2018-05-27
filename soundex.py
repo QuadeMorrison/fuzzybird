@@ -18,7 +18,7 @@ def encode_word(word):
 
     for i, c in enumerate(word):
         if i == 0:
-            encoded_word += c
+            encoded_word += str(c)
             if c not in encoding:
                 last_was_vowel = True
         # elif num_encoded == 3:

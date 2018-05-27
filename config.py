@@ -4,8 +4,6 @@ import argparse
 import configparser
 import sys
 
-g_keys = {}
-
 def arg_logic():
     # this is just in the standard library.
     parser = argparse.ArgumentParser(prog="py-web-serv",description = "A simple python web server.")
@@ -15,6 +13,8 @@ def arg_logic():
     parser.add_argument("--config-file", metavar='F',
             help="Override the config file.",
             default="~/.fuzzybirdrc")
+    parser.add_argument("--hashtag", metavar='H',
+            help="The hashtag.")
     return parser.parse_args()
 
 # sets some config variables
@@ -25,11 +25,13 @@ def parse_config(config_file):
     if not 'keys' in config:
         error("There were no keys found in '{:s}'.".format(config_file))
 
-    g_keys = config['keys']
+    keys = config['keys']
 
-    for key in ['consumerkey', 'consumersecretkey', 'accesstoken', 'accesstokenkey']:
-        if not key in g_keys:
+    for key in ['consumerkey', 'consumersecret', 'accesstokenkey', 'accesstokensecret']:
+        if not key in keys:
             error("'{:s}' key not found in config.".format(key))
+
+    return keys
 
 def error(s):
     sys.exit("Error: " + s)

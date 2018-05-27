@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
 
+import config
+import twitter
+import soundex
+import unicodedata
+import config
 import curses
 import string
 import shutil
-from curses import wrapper
 import signal, sys
 
 g_lines, g_cols = 0, 0
+g_hashtags, g_encoded_hashtags = [], []
 
 START_CURSOR_X=2
 
@@ -23,8 +28,17 @@ for c in string.printable:
     char_codes.append(ord(c))
 
 def draw_scr(stdscr):
-    global input_string
+    global input_string, g_hashtags, g_encoded_hashtags, tweet_arr, spot
 
+    # update array, update spot, draw
+    tweet_arr = soundex.match(input_string, g_hashtags, g_encoded_hashtags)
+    tl = len(tweet_arr) - 1
+    if tl < 0:
+        spot = -1
+    else:
+        spot = min(tl, max(0, spot))
+
+    # draw stuff
     stdscr.move(0, 0)
     stdscr.clear()
 
@@ -47,13 +61,14 @@ def main(stdscr):
     cursor_x = START_CURSOR_X
     cursor_y = curses.LINES-1
     global spot, input_string, finish_winch, g_lines, g_cols
+    global input_string, g_hashtags, g_encoded_hashtags, tweet_arr
 
     draw_scr(stdscr)
 
     while True:
         ch_code = stdscr.getch()
         if ch_code == curses.KEY_UP:
-            spot = min(len(tweet_arr)-1, spot + 1)
+            spot = min(len(tweet_arr)-1, curses.LINES-2, spot + 1)
         elif ch_code == curses.KEY_DOWN:
             spot = max(0, spot - 1)
         elif ch_code == 8 or ch_code == 127:
@@ -75,17 +90,12 @@ def main(stdscr):
                 curses.resizeterm(l, c)
                 g_lines, g_cols = l, c
 
-        # MUST UPDATE THE SPOT HERE!
-        # THEN DRAW!!!
-        tl = len(tweet_arr) - 1
-        if tl < 0:
-            spot = -1
-        else:
-            spot = min(tl, max(0, spot))
-
         draw_scr(stdscr)
 
-wrapper(main)
+def execute(hashtags, encoded_hashtags):
+    global g_hashtags, g_encoded_hashtags
+    g_hashtags, g_encoded_hashtags = hashtags, encoded_hashtags
+    curses.wrapper(main)
 
-if spot >= 0:
-    print(tweet_arr[spot])
+    if spot >= 0:
+        print(tweet_arr[spot])
