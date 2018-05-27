@@ -12,7 +12,9 @@ def arg_logic():
 
     # arguments
     parser = argparse.ArgumentParser(prog="fuzzybird",description = "A twitter fuzzy finder :).")
-    parser.add_argument("--config", metavar='F', help="Override the config file.", default="~/.fuzzybirdrc")
+    parser.add_argument("--config-file", metavar='F',
+            help="Override the config file.",
+            default="~/.fuzzybirdrc")
     return parser.parse_args()
 
 # sets some config variables
@@ -34,4 +36,4 @@ def error(s):
 
 if __name__ == "__main__":
     args = arg_logic()
-    parse_config(args.config)
+    parse_config(args.config_file)
