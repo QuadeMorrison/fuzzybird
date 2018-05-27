@@ -21,8 +21,8 @@ def encode_word(word):
             encoded_word += c
             if c not in encoding:
                 last_was_vowel = True
-        elif num_encoded == 3:
-            break
+        # elif num_encoded == 3:
+            #break
         elif c in encoding:
             encoded_char = encoding[c]
 
@@ -45,7 +45,7 @@ def encode_word(word):
             last_was_h_or_w = True
             last_was_vowel = False
         # The letter must be a vowel
-        elif not c.isdigit():
+        else:
             last_was_vowel = True
 
     return encoded_word
@@ -62,7 +62,11 @@ def encode_str(str, pipe_together = False):
     return encoded_str if not pipe_together else encoded_str[0:-1]
 
 
-def match(str, phrases, encoded_phrases = False):
+def encode_phrases(phrases):
+    return list(map(lambda phrase: encode_str(phrase), phrases))
+
+
+def match_raw(str, phrases, encoded_phrases=False):
     encoded_str = encode_str(str, True)
     matching_phrases = []
 
@@ -70,9 +74,13 @@ def match(str, phrases, encoded_phrases = False):
         encoded_phrases = list(map(lambda phrase: encode_str(phrase), phrases))
 
     for i, phrase in enumerate(encoded_phrases):
-        score = len(re.findall(encoded_str, phrase))
+        score = len(set(re.findall(encoded_str, phrase)))
 
         if score > 0:
             matching_phrases.append((phrases[i], score))
 
-    return sorted(matching_phrases)
+    return sorted(set(matching_phrases), key=lambda match: match[1])
+
+
+def match(str, phrases, encoded_phrases=False):
+    return [text[0] for text in match_raw(str, phrases, encoded_phrases)]
